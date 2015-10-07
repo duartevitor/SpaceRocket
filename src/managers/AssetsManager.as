@@ -13,20 +13,26 @@ package managers
 		/** 
 		 * PARTICLES RELATED MEDIA
 		 **/ 
-		[Embed(source="../media/particles/particleCoffee.pex", mimeType="application/octet-stream")]
+		[Embed(source="../media/particles/rocketExaustParticle.pex", mimeType="application/octet-stream")]
 		public static var particleXML:Class;
 		
-		[Embed(source="../media/particles/texture.png")]
+		[Embed(source="../media/particles/rocketExaustTexture.png")]
 		public static var particleTexture:Class;
 		
 		/** 
-		 * BACKGROUND RELATED MEDIA
+		 * SPACE / BACKGROUND RELATED MEDIA
 		 **/
-		[Embed(source="../media/graphics/background_8b.png")]
-		public static const BgSpace:Class;
+		[Embed(source="../media/graphics/BgSpace1.jpg")]
+		public static const BgSpace1:Class;
+		
+		[Embed(source="../media/graphics/BgSpace2.jpg")]
+		public static const BgSpace2:Class;
 		
 		[Embed(source="../media/graphics/world_2.png")]
 		public static const BgWorld:Class;
+		
+		[Embed(source="../media/graphics/rocket.png")]
+		public static const Rocket:Class;
 		
 		
 		/**

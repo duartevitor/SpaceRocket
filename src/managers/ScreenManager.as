@@ -3,7 +3,7 @@ package managers
 	import flash.system.Capabilities;
 	
 	import screens.ScreenSettings;
-	import screens.ScreenSpaceGame;
+	import screens.gameLevelsScreens.ScreenSpaceLevel;
 	import screens.ScreenWelcome;
 	
 	import starling.display.Sprite;
@@ -14,7 +14,7 @@ package managers
 		// Main Screens
 		private var _screenWelcome		:ScreenWelcome;
 		private var _screenSettings		:ScreenSettings;
-		private var _screenSpaceGame	:ScreenSpaceGame;
+		private var _screenSpaceGame	:ScreenSpaceLevel;
 		
 		public function ScreenManager()
 		{
@@ -28,9 +28,9 @@ package managers
 			this.removeEventListener(starling.events.Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			// create and add screens
-			this._screenSpaceGame = new ScreenSpaceGame();
+			this._screenSpaceGame = new ScreenSpaceLevel();
 			this.addChild(this._screenSpaceGame);
-			this._screenSpaceGame.disposeTemporarily();
+			this._screenSpaceGame.initialize();
 			
 			this._screenSettings = new ScreenSettings();
 			this.addChild(this._screenSettings);
@@ -38,7 +38,7 @@ package managers
 			
 			this._screenWelcome = new ScreenWelcome();
 			this.addChild(this._screenWelcome);
-			this._screenWelcome.initialize();
+			this._screenWelcome.disposeTemporarily();
 		}
 	}
 }

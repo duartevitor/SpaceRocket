@@ -9,6 +9,6 @@ package managers
 		public static var BACKGROUND_IMG_HEIGHT:int = 768;
 		
 		// time needed ( in sec ) to move a background image
-		public static var BACK_MOVE_TIME:int = 115;
+		public static var BACK_MOVE_TIME:int = 10;
 	}
 }

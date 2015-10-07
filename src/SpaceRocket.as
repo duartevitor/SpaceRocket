@@ -22,7 +22,7 @@ package
 	import starling.textures.RenderTexture;
 	import starling.utils.SystemUtil;
 	
-	[SWF(frameRate="60", backgroundColor="#ffaa22")]
+	[SWF(width="2048",height="1556",frameRate="60", backgroundColor="#ffaa22")]
 	public class SpaceRocket extends Sprite
 	{
 		// provides framerate and memory usage
@@ -38,7 +38,7 @@ package
 			stage.setAspectRatio(StageAspectRatio.LANDSCAPE);
 			
 			// Tweenmax plugins
-			TweenPlugin.activate([TransformAroundCenterPlugin]);
+			//TweenPlugin.activate([]);
 			
 			// add statistics
 			this.addChild(this._stats = new Stats());
@@ -117,9 +117,17 @@ package
 			{
 				//
 				NativeApplication.nativeApplication.addEventListener(
-					flash.events.Event.ACTIVATE, function (e:*):void { _starling.start(); });
+					flash.events.Event.ACTIVATE, function (e:*):void 
+					{ 
+						_starling.start(); 
+					}
+				);
 				NativeApplication.nativeApplication.addEventListener(
-					flash.events.Event.DEACTIVATE, function (e:*):void { _starling.stop(true); });
+					flash.events.Event.DEACTIVATE, function (e:*):void 
+					{ 
+						_starling.stop(true); 
+					}
+				);
 			}
 		}
 	}

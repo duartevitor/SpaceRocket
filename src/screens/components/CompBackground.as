@@ -12,8 +12,10 @@ package screens.components
 	
 	public class CompBackground extends Sprite
 	{
-		private var _back1	:Image;
-		private var _back2	:Image;
+		private var _back1_1	:Image;
+		private var _back1_2	:Image;
+		private var _back2_1	:Image;
+		private var _back2_2	:Image;
 		
 		public function CompBackground()
 		{
@@ -31,17 +33,24 @@ package screens.components
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
-			this._back1 = new Image(AssetsManager.getTexture("BgSpace"));
-			this.addChild(this._back1);
-			this._back1.x = 0;
-			
-			this._back2 = new Image(AssetsManager.getTexture("BgSpace"));
-			this.addChild(this._back2);
-			this._back2.height = SettingsManager.BACKGROUND_IMG_HEIGHT;
-			this._back2.x = stage.stageWidth;
-			
-			this._back1.width = this._back2.width= stage.stageWidth;
-			this._back1.height = this._back2.height = stage.stageHeight;
+			loadBackgroundImage(this._back1_1 = new Image(AssetsManager.getTexture("BgSpace1")));
+			loadBackgroundImage(this._back1_2 = new Image(AssetsManager.getTexture("BgSpace1")));
+			loadBackgroundImage(this._back2_1 = new Image(AssetsManager.getTexture("BgSpace2")));
+			loadBackgroundImage(this._back2_2 = new Image(AssetsManager.getTexture("BgSpace2")));
+		}
+		
+		/**
+		 * 
+		 * @param img
+		 * @param bgName
+		 * 
+		 */		
+		private function loadBackgroundImage(img:Image):void
+		{
+			this.addChild(img);
+			img.x 		= -stage.stageWidth;
+			img.width 	= stage.stageWidth;
+			img.height 	= stage.stageHeight;
 		}
 		
 		/**
@@ -52,12 +61,20 @@ package screens.components
 		private function onCompleteBackgroundLayer(bgLayer:Image):void
 		{
 			var nextX:int = -stage.stageWidth;
+			
 			if(bgLayer.x == -stage.stageWidth){
+				// random next bg layer
+				if(Math.round(Math.random()*9) > 4){ // next layer will be layer 2_X
+					bgLayer = (this._back2_1.x == -stage.stageWidth)?(this._back2_1):(this._back2_2);					
+				}
+				else{// next layer will be layer 1_X
+					bgLayer = (this._back1_1.x == -stage.stageWidth)?(this._back1_1):(this._back1_2);
+				}
+				
 				bgLayer.x = stage.stageWidth;
 				nextX = 0;
 			}
 			
-			trace(bgLayer.name,nextX);
 			TweenMax.to(bgLayer,SettingsManager.BACK_MOVE_TIME,{x:nextX, ease:Linear.easeNone, onComplete:onCompleteBackgroundLayer, onCompleteParams:[bgLayer]});
 		}
 		
@@ -67,10 +84,12 @@ package screens.components
 		 */		
 		public function startBackground():void
 		{
-			this._back1.x = 0;
-			trace("tween to:",-stage.stageWidth);
-			TweenMax.to(this._back1,SettingsManager.BACK_MOVE_TIME,{x:-stage.stageWidth, ease:Linear.easeNone, onComplete:onCompleteBackgroundLayer, onCompleteParams:[this._back1]});
-			TweenMax.to(this._back2,SettingsManager.BACK_MOVE_TIME,{x:0, ease:Linear.easeNone, onComplete:onCompleteBackgroundLayer, onCompleteParams:[this._back2]});
+			// default will be layer 1_X
+			this._back1_1.x = 0;
+			this._back1_2.x = stage.stageWidth;
+
+			TweenMax.to(this._back1_1,SettingsManager.BACK_MOVE_TIME,{x:-stage.stageWidth, ease:Linear.easeNone, onComplete:onCompleteBackgroundLayer, onCompleteParams:[this._back1_1]});
+			TweenMax.to(this._back1_2,SettingsManager.BACK_MOVE_TIME,{x:0, ease:Linear.easeNone, onComplete:onCompleteBackgroundLayer, onCompleteParams:[this._back1_2]});
 			
 			// increase background in yoyo mode
 			TweenMax.to(this,10,{scaleY:1.05, repeat:-1, yoyo:true, ease:Linear.easeNone});
